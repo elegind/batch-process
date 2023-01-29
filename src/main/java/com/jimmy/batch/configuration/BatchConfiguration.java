@@ -1,6 +1,6 @@
 package com.jimmy.batch.configuration;
 
-import com.jimmy.batch.dto.ReferenceXmlItem;
+import com.jimmy.batch.dto.*;
 import com.jimmy.batch.reference.JobCompletionNotificationListener;
 import com.jimmy.batch.reference.ReferenceProcessor;
 import com.jimmy.batch.commons.entity.Reference;
@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.oxm.xstream.XStreamMarshaller;
 import org.springframework.transaction.PlatformTransactionManager;
 
@@ -36,35 +37,20 @@ public class BatchConfiguration {
     @Bean
     public StaxEventItemReader itemReader() {
         System.out.println("current dir : " + System.getProperty("user.dir"));
-        return new StaxEventItemReaderBuilder<ReferenceXmlItem>()
+        return new StaxEventItemReaderBuilder<ReferenceObjectContainer>()
                 .name("itemReader")
                 .resource(new FileSystemResource("./src/main/resources/com.jimmy.batch/sample.xml"))
-                .addFragmentRootElements("orgUnitData", "positionData", "activityData")
-                .unmarshaller(refMarshaller())
+                .addFragmentRootElements("orgUnitData")
+                .unmarshaller(marshaller())
                 .build();
 
     }
 
     @Bean
-    public XStreamMarshaller refMarshaller() {
-        Map<String, Class> aliases = new HashMap<>();
-        aliases.put("orgUnitData", ReferenceXmlItem.class);
-        aliases.put("positionData", ReferenceXmlItem.class);
-        aliases.put("activityData", ReferenceXmlItem.class);
-        aliases.put("divisionShDesc", String.class);
-        aliases.put("divisionLgDesc", String.class);
-        aliases.put("positionLgDesc", String.class);
-        aliases.put("positionShDesc", String.class);
-        aliases.put("activityLgDesc", String.class);
-        aliases.put("activityShDesc", String.class);
-
-        XStreamMarshaller marshaller = new XStreamMarshaller();
-        ExplicitTypePermission typePermission = new ExplicitTypePermission(new Class[] { ReferenceXmlItem.class });
-        marshaller.setTypePermissions(typePermission);
-
-        marshaller.setAliases(aliases);
-
-        return marshaller;
+    public Jaxb2Marshaller marshaller() {
+        Jaxb2Marshaller jaxb2Marshaller = new Jaxb2Marshaller();
+        jaxb2Marshaller.setClassesToBeBound(OrgUnitData.class);
+        return jaxb2Marshaller;
     }
 
     @Bean

@@ -30,6 +30,7 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
       System.out.println("job finished");
       log.info("!!! JOB FINISHED! Time to verify the results");
       List<Reference> refList = referenceRepository.findAll();
+      refList.stream().forEach(el -> System.out.println(el));
       log.info("Found : " + refList.size() + " records stored in DB");
     }
   }
