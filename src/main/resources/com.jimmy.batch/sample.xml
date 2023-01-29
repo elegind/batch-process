@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<header>
+<omObjects>
+<orgUnitData  begda="20030101" endda="99991231" division="1" language="F" divisionShDesc="ITNICE" divisionLgDesc="IT Nice" divisionParent="3" directionID="3" object32="00000000"/>
+<orgUnitData  begda="20030101" endda="99991231" division="2" language="F" divisionShDesc="ITPARIS" divisionLgDesc="IT Paris" divisionParent="3" directionID="3" object32="00000000"/>
+<positionData  begda="20150101" endda="99991231" position="1" positionLgDesc="DEV" positionShDesc="DEVELOPER"/>
+<positionData  begda="20150101" endda="99991231" position="2" positionLgDesc="TECH" positionShDesc="TECHNICAL LEAD"/>
+<activityData  begda="20201019" endda="99991231" activity="1" activityLgDesc="123M" activityShDesc="MANAGER"/>
+<activityData  begda="20201019" endda="99991231" activity="2" activityLgDesc="456D" activityShDesc="DIRECTEUR"/>
+</omObjects>
+</header>
